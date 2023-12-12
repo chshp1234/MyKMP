@@ -1,0 +1,48 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'org.jetbrains.kotlin.jvm'
+    id 'org.openjfx.javafxplugin' version '0.0.13'
+//    id 'org.javamodularity.moduleplugin' version '1.8.12'
+//    id 'org.beryx.jlink' version '2.25.0'
+}
+
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+group 'com.example'
+version '1.0'
+
+ext {
+    junitVersion = '5.10.0'
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+application {
+    mainModule = 'com.example.jfx'
+    mainClass = 'com.example.jfx.HelloApplication'
+}
+
+kotlin {
+    jvmToolchain(17)
+}
+
+javafx {
+    version = '17.0.6'
+    modules = ['javafx.controls', 'javafx.fxml']
+}
+
+dependencies {
+    implementation('org.controlsfx:controlsfx:11.1.2')
+
+//    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
+//    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+
+    implementation project(':shared')
+}
