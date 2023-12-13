@@ -1,10 +1,15 @@
 plugins {
+    //为了生成 Android 库，除了 Kotlin Multiplatform 之外，还使用了单独的 Gradle 插件：
     id("com.android.library")
+    //使用应用了 Kotlin Multiplatform 插件的 Gradle 构建系统
+    //kotlin-multiplatform插件可配置项目以创建可在多个平台上工作的应用程序或库， 并为在这些平台上构建做好准备
     id("org.jetbrains.kotlin.multiplatform")
-    kotlin("plugin.serialization") version "1.9.10"
+    //kotlin序列号插件
+    kotlin("plugin.serialization") version "1.9.21"
 //    id("kotlin-kapt")
 }
 
+//Android 库的配置,同普通aar模块
 android {
     namespace = "com.kmm.shared"
     compileSdk = 34

@@ -2,6 +2,7 @@ package com.example.jfx
 
 import com.kmm.shared.greeting
 import com.kmm.shared.http.HttpGet
+import javafx.application.Platform
 import javafx.fxml.FXML
 import javafx.scene.control.Label
 import kotlinx.coroutines.MainScope
@@ -20,6 +21,9 @@ class HelloController {
 
     @FXML
     private fun onHelloButtonClick() {
+        Platform.runLater {
+
+        }
         MainScope().launch {
             welcomeText.text = HttpGet.getWeather()
         }

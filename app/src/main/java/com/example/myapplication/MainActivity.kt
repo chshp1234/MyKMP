@@ -13,6 +13,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.myapplication.ui.theme.MyApplicationTheme
@@ -34,7 +35,7 @@ class MainActivity : ComponentActivity() {
                 ) {
                     Column {
                         Greeting(greeting())
-                        getRocket()
+                        GetTmp()
                     }
                 }
             }
@@ -51,13 +52,12 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun getRocket(modifier: Modifier = Modifier) {
-    var state = remember {
-        mutableStateOf("loading...")
-    }
-    Text(text = state.value, modifier = modifier)
+fun GetTmp(modifier: Modifier = Modifier) {
+    var state by remember { mutableStateOf("loading...") }
+    Text(text = state, modifier = modifier)
 
     LaunchedEffect(key1 = true) {
-        state.value = getWeather()
+        state = getWeather()
     }
+
 }
