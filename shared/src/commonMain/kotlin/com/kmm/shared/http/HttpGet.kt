@@ -14,14 +14,10 @@ import io.ktor.client.request.parameter
 import io.ktor.http.HttpHeaders
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
+import org.slf4j.LoggerFactory
 
 object HttpGet {
     private val client = httpClientGet {
-        install(Logging) {
-            logger = Logger.DEFAULT
-            level = LogLevel.ALL
-            sanitizeHeader { header -> header == HttpHeaders.Authorization }
-        }
         install(ContentNegotiation) {
             json(Json {
                 prettyPrint = true

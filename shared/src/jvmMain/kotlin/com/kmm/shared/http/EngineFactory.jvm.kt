@@ -9,6 +9,7 @@ import io.ktor.client.plugins.logging.DEFAULT
 import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
+import io.ktor.client.plugins.logging.SIMPLE
 import io.ktor.http.ContentType.Application.Json
 import io.ktor.http.HttpHeaders
 import io.ktor.serialization.kotlinx.json.json
@@ -18,7 +19,7 @@ import okhttp3.OkHttpClient
 import okhttp3.Response
 
 //jvm平台的HttpClient,使用OkHttp引擎
-actual fun httpClientGet(plugin: HttpClientConfig<*>.() -> Unit): HttpClient {
+actual fun httpClientGet(customPlugin: HttpClientConfig<*>.() -> Unit): HttpClient {
     val clientInterceptor = ClientInterceptor()
     val networkInterceptor = NetworkInterceptor()
     val preClient: OkHttpClient? = null
@@ -37,7 +38,12 @@ actual fun httpClientGet(plugin: HttpClientConfig<*>.() -> Unit): HttpClient {
 
             preconfigured = preClient
         }
-        plugin()
+        install(Logging) {
+            logger = Logger.DEFAULT
+            level = LogLevel.ALL
+//            sanitizeHeader { header -> header == HttpHeaders.Authorization }
+        }
+        customPlugin()
     }
 }
 
