@@ -98,12 +98,11 @@ fun GetTmp(modifier: Modifier = Modifier) {
         isLoading = false
     }
 
+    DarkBackground(isDark = isLoading)
     //根据加载状态,判断是加载进度条还是显示结果文字
     if (isLoading) {
-        DarkBackground(isDark = true)
         LoadingText()
     } else {
-        DarkBackground(isDark = false)
         Text(text = state, fontSize = 20.sp, modifier = modifier.clickable {
             coroutineScope.launch {
                 isLoading = true
@@ -151,7 +150,7 @@ fun DarkBackground(isDark: Boolean) {
     /* 更改dialog window的透明度 */
     LaunchedEffect(isDark) {
         /**
-         *此代码逻辑来自 ComposeInputMethodManager . kt 下的[androidx.compose, foundation.text2.serv:
+         * 此代码逻辑来自 ComposeInputMethodManager.kt 下的[androidx.compose.foundation.text2.service.ImmHelper30]
          */
         tailrec fun Context.findWindow(): Window? = when (this) {
             is Activity -> window

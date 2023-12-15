@@ -14,7 +14,6 @@ import io.ktor.client.request.parameter
 import io.ktor.http.HttpHeaders
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
-import org.slf4j.LoggerFactory
 
 object HttpGet {
     private val client = httpClientGet {

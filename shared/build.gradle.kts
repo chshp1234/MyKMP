@@ -27,12 +27,24 @@ java {
 
 kotlin {
     val ktor_version = "2.3.7"
-    val kotlinx_coroutines = "1.7.1"
+    val kotlinx_coroutines = "1.7.3"
 
     //设置编译目标
     //只有设置了编译目标,才能设置下面的源码集,并且才能创建对应的源码目录
     jvm()
+
     androidTarget()
+
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach {
+        it.binaries.framework {
+            baseName = "shared"
+            isStatic = true
+        }
+    }
 //    iosArm64()
 //    js()
 
@@ -60,6 +72,9 @@ kotlin {
                 implementation("io.ktor:ktor-client-okhttp:$ktor_version")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-javafx:$kotlinx_coroutines")
             }
+        }
+        iosMain.dependencies {
+            implementation("io.ktor:ktor-client-darwin:$ktor_version")
         }
     }
 }
