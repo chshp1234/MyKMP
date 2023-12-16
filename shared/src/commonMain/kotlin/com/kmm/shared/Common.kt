@@ -1,5 +1,14 @@
 package com.kmm.shared
 
-fun greeting(): String {
-    return "Hello, Kotlin Multiplatform!"
+
+interface Platform {
+    val name: String
 }
+
+object DefaultPlatform : Platform {
+    override val name: String = "Multiplatform"
+}
+
+expect fun getPlatform(): Platform
+
+expect fun greeting(platform: Platform = DefaultPlatform): String

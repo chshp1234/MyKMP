@@ -43,6 +43,7 @@ import androidx.compose.ui.window.DialogWindowProvider
 import androidx.compose.ui.window.PopupProperties
 import androidx.compose.ui.window.SecureFlagPolicy
 import com.example.myapplication.ui.theme.MyApplicationTheme
+import com.kmm.shared.getPlatform
 import com.kmm.shared.greeting
 import com.kmm.shared.http.HttpGet
 import com.kmm.shared.http.HttpGet.getWeather
@@ -62,7 +63,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     Column {
-                        Greeting(greeting())
+                        Greeting(greeting(getPlatform()))
                         GetTmp()
                     }
                 }
@@ -74,7 +75,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     Text(
-        text = "Hello $name!",
+        text = name,
         modifier = modifier,
         fontSize = 20.sp
     )
