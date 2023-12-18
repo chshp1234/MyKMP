@@ -1,21 +1,34 @@
 # Kotlin Multiplatform
 
+## 官方文档
+1. [https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)
+2. [https://kotlinlang.org/docs/multiplatform.html](https://kotlinlang.org/docs/multiplatform.html)
+
+## demo简介
+
 Kotlin Multiplatform demo项目，包含Android端，iOS端以及win端.其中win端用JavaFX实现UI。
 
-KMP(Kotlin Multiplatform)中默认的目标层次结构如下图：
+## 项目结构
+- app:Android项目
+- iosApp：iOS项目
+- jfx：JavaFX项目
+- shared：kotlin跨平台项目
 
-![](default_hierarchy.png)
+shared中的src又包含了各级子目录，表示编译的目标源代码。
 
-当然还有和android同级的jvm()和js()。其中绿色表示被加入项目的构建目标。灰色表示未加入的。
-
-根据层次结构,我们还可以编写平台特有的api。比如demo中，在appleMain源代码集中定义一个expect函数iGreetingApple()，
+在KMP(Kotlin Multiplatform)中，默认的目标层次结构如下图：  
+![](default_hierarchy.png)  
+当然还有和android同级的jvm()和js()。其中绿色表示被加入项目的构建目标。灰色表示未加入的。  
+注意，结构是有父子关系的，common是根节点，apple是苹果端的根节点。根据层次结构,我们还可以编写平台特有的api。比如demo中，在appleMain源代码集中定义一个expect函数iGreetingApple()，
 这个函数将只在apple平台中可以调用，其他平台将无法调用。又或者在native中定义一个expect函数,那这个函数将在androidNative、apple、mingw、Linux
 平台中可以调用，在androidTarget中无法调用。
 
-> 编译目标，可以在kotlin{}块中配置，有js()，androidTarget()，jvm()等。
-> 源代码集也可以在kotlin{}块中配置，可以指定某个平台的引入的三方库信息。
+> - 当定义expect函数时，ide会提示需要添加待实现的actual函数，也可以在此注意到整个‘层次结构’，
+比如在apple上打上勾，表示在apple的源代码下编写实现代码，那么再下面的目录（ios、macos等）中就不用添加actual的实现代码了。
+> - 编译目标，可以在kotlin{}块中配置，有js()，androidTarget()，jvm()等。
+> - 源代码集也可以在kotlin{}块中配置，可以指定某个平台的引入的三方库信息。
 
-## 坑点
+## 踩坑点
 
 1. 没设定编译目标前，无法引入源集进行三方库依赖
 2. Swift中在非主线程调用kotlin suspend
