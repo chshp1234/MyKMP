@@ -6,7 +6,7 @@
 
 ## demo简介
 
-Kotlin Multiplatform demo项目，包含Android端，iOS端以及win端.其中win端用JavaFX实现UI。
+Kotlin Multiplatform demo项目，ktor进行网络请求，就做了个一个获取天气预报接口，后期慢慢完善。其中包含Android端，iOS端以及win端。其中win端用JavaFX实现UI。
 
 ## 项目结构
 - app:Android项目
