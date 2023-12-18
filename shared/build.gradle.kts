@@ -67,7 +67,6 @@ kotlin {
             }
         }
         val jvmMain by getting {
-            // ...
             dependencies {
                 implementation("io.ktor:ktor-client-okhttp:$ktor_version")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-javafx:$kotlinx_coroutines")

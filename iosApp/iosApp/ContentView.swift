@@ -17,7 +17,7 @@ extension ContentView {
         init() {
             Task {
                 do {
-                    let result = try await HttpGet().getWeather(location: "上海")
+                    let result = try await Common_apple_iosKt.iGreetingApple()
                     DispatchQueue.main.async {
                         self.phrases = result
                     }
