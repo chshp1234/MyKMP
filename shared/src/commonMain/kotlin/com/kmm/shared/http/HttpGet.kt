@@ -35,7 +35,7 @@ object HttpGet {
         return "${lastSuccessLaunch.missionName}:${lastSuccessLaunch.launchDateUTC}->${lastSuccessLaunch.launchSuccess}"
     }
 
-    suspend fun getWeather(location: String = "福州"): String {
+    suspend fun getWeather(location: String = "北京"): String {
         val weather = client.get("https://api.seniverse.com/v3/weather/now.json") {
             this.parameter("key", "Sf36ujG-QgU65jF5l")
             this.parameter("location", location)

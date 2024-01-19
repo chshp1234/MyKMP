@@ -17,13 +17,18 @@ dependencyResolutionManagement {
     //设置这个会导致在kmp中添加ios()目标时,任务构建失败(Build was configured to prefer settings repositories over project repositories but repository 'ivy' was added by build file 'shared/build.gradle.kts')
 //    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
+
         maven("https://maven.pkg.jetbrains.space/public/p/ktor/eap")
-//        maven("https://maven.aliyun.com/repository/public")
-//        maven("https://maven.aliyun.com/repository/google")
-//        maven("https://maven.aliyun.com/repository/gradle-plugin")
+        maven("https://www.jitpack.io")
+
         mavenLocal()
         google()
         mavenCentral()
+
+        maven("https://maven.aliyun.com/repository/public")
+        maven("https://maven.aliyun.com/repository/google")
+        maven("https://maven.aliyun.com/repository/gradle-plugin")
+
     }
 }
 

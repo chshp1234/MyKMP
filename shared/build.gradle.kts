@@ -5,7 +5,7 @@ plugins {
     //kotlin-multiplatform插件可配置项目以创建可在多个平台上工作的应用程序或库， 并为在这些平台上构建做好准备
     id("org.jetbrains.kotlin.multiplatform")
     //kotlin序列号插件
-    kotlin("plugin.serialization") version "1.9.21"
+    kotlin("plugin.serialization") version "1.9.22"
 //    id("kotlin-kapt")
 }
 
@@ -79,5 +79,5 @@ kotlin {
 }
 
 dependencies {
-
+    api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
 }

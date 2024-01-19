@@ -161,6 +161,7 @@ fun DarkBackground(isDark: Boolean) {
 
         fun View.findWindow(): Window? =
             (parent as? DialogWindowProvider)?.window ?: context.findWindow()
+
         try {
             val window = curView.findWindow() ?: return@LaunchedEffect
             val lp = window.attributes
