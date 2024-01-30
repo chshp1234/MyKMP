@@ -1,6 +1,7 @@
 package com.example.jfx
 
-import com.example.jfx.aop.inject
+import com.example.jfx.aop.injectDeque
+import com.example.jfx.aop.injectViewEventHandler
 import javafx.application.Application
 import javafx.fxml.FXMLLoader
 import javafx.scene.Scene
@@ -9,7 +10,7 @@ import javafx.stage.Stage
 class HelloApplication : Application() {
 
     init {
-        inject()
+        injectDeque()
     }
 
     override fun start(stage: Stage) {
@@ -18,6 +19,8 @@ class HelloApplication : Application() {
         stage.title = "Hello!"
         stage.scene = scene
         stage.show()
+
+        injectViewEventHandler(scene)
     }
 }
 

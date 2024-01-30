@@ -1,11 +1,14 @@
 package com.example.jfx.aop
 
 import com.sun.glass.ui.Application
+import com.sun.glass.ui.View
+import javafx.scene.Scene
 
 //必须在inject之后使用
 lateinit var fxUserThread: Thread
 
-fun inject() {
+//在我们自定义的Application（和上文的Application不是同一个）中的start方法，或者直接在构造函数中调用
+fun injectDeque() {
     //各个平台Application抽象类
     //其中Mac平台实现类为MacApplication；win平台实现类为WinApplication。此外还有iOS平台，SWT平台等。
     val appClass = Application::class.java
@@ -34,6 +37,16 @@ fun inject() {
         isAccessible = true
         get(null) as Thread
     }
+}
+
+fun injectViewEventHandler(scene: Scene) {
+    //java1.8中字段名是impl_peer，JavaFX17中（单独的库了），字段名是peer
+    val impl_peerField = scene.javaClass.getDeclaredField("peer").also { it.isAccessible = true }
+    val impl_peer = impl_peerField.get(scene)
+    val platformViewField = impl_peer.javaClass.getDeclaredField("platformView").also { it.isAccessible = true }
+    val platformView = platformViewField.get(impl_peer) as View
+    val originHandler = platformView.eventHandler
+    platformView.eventHandler = MyEventHandlerProxy(originHandler)
 }
 
 fun <R> userFxThread(block: Thread.() -> R): R {
