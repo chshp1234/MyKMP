@@ -25,9 +25,10 @@ java {
     targetCompatibility = JavaVersion.VERSION_17
 }
 
+val ktor_version = "2.3.7"
+val kotlinx_coroutines = "1.7.3"
+
 kotlin {
-    val ktor_version = "2.3.7"
-    val kotlinx_coroutines = "1.7.3"
 
     //设置编译目标
     //只有设置了编译目标,才能设置下面的源码集,并且才能创建对应的源码目录
@@ -79,5 +80,5 @@ kotlin {
 }
 
 dependencies {
-    api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+    api("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinx_coroutines")
 }

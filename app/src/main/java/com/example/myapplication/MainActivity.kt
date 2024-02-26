@@ -4,6 +4,9 @@ import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
 import android.os.Bundle
+import android.util.Log
+import android.view.KeyEvent
+import android.view.MotionEvent
 import android.view.View
 import android.view.Window
 import androidx.activity.ComponentActivity
@@ -42,6 +45,8 @@ import androidx.compose.ui.window.DialogProperties
 import androidx.compose.ui.window.DialogWindowProvider
 import androidx.compose.ui.window.PopupProperties
 import androidx.compose.ui.window.SecureFlagPolicy
+import com.example.myapplication.anr.injectInputMsg
+import com.example.myapplication.anr.injectMainLooper
 import com.example.myapplication.ui.theme.MyApplicationTheme
 import com.kmm.shared.getPlatform
 import com.kmm.shared.greeting
@@ -69,6 +74,25 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+        injectMainLooper { isStart, msg ->
+            Log.d("主线程消息", msg)
+        }
+    }
+
+    override fun dispatchKeyEvent(event: KeyEvent?): Boolean {
+        return super.dispatchKeyEvent(event)
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        if (ev?.action == MotionEvent.ACTION_MOVE) {
+            val stacks = Thread.currentThread().stackTrace
+            Log.d("滑动事件", "=========================")
+            for (stack in stacks) {
+                Log.d("滑动事件", stack.className + ":(" + stack.methodName + ")")
+            }
+            Log.d("滑动事件", "=========================\n")
+        }
+        return super.dispatchTouchEvent(ev)
     }
 }
 
