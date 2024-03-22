@@ -3,7 +3,6 @@ package com.kmm.shared
 object JVMPlatform : Platform {
     override val name: String
         get() = "JVMPlatform"
-
 }
 
 actual fun getPlatform(): Platform {

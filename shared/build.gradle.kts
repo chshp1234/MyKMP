@@ -9,6 +9,13 @@ plugins {
 //    id("kotlin-kapt")
 }
 
+rootProject.plugins.withType<org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlugin> {
+    rootProject.the<org.jetbrains.kotlin.gradle.targets.js.yarn.YarnRootExtension>().lockFileDirectory =
+        project.rootDir.resolve("my-kotlin-js-store")
+    rootProject.the<org.jetbrains.kotlin.gradle.targets.js.yarn.YarnRootExtension>().lockFileName =
+        "my-yarn.lock"
+}
+
 //Android 库的配置,同普通aar模块
 android {
     namespace = "com.kmm.shared"
@@ -25,10 +32,13 @@ java {
     targetCompatibility = JavaVersion.VERSION_17
 }
 
-val ktor_version = "2.3.7"
-val kotlinx_coroutines = "1.7.3"
+val ktor_version = "2.3.9"
+val kotlinx_coroutines = "1.8.0"
 
 kotlin {
+
+    //解决Task 'testClasses' not found in project
+    task("testClasses")
 
     //设置编译目标
     //只有设置了编译目标,才能设置下面的源码集,并且才能创建对应的源码目录
@@ -47,7 +57,19 @@ kotlin {
         }
     }
 //    iosArm64()
-//    js()
+    js(IR) {
+        binaries.executable()
+        /*browser {
+            commonWebpackConfig {
+                cssSupport {
+                    enabled.set(true)
+                }
+            }
+        }*/
+        nodejs {
+
+        }
+    }
 
     //源码集
     //可以设置单独的依赖关系
@@ -75,6 +97,11 @@ kotlin {
         }
         iosMain.dependencies {
             implementation("io.ktor:ktor-client-darwin:$ktor_version")
+        }
+
+        jsMain.dependencies {
+            implementation("io.ktor:ktor-client-js:$ktor_version")
+            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-js:1.8.0")
         }
     }
 }

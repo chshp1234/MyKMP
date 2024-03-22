@@ -1,6 +1,11 @@
 package com.kmm.shared
 
+import kotlin.js.ExperimentalJsExport
+import kotlin.js.JsExport
+import kotlin.js.JsName
 
+@OptIn(ExperimentalJsExport::class)
+@JsExport
 interface Platform {
     val name: String
 }

@@ -32,7 +32,15 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "My Application"
+//解决问题：error package.json: Name contains illegal characters，* What went wrong:
+//Execution failed for task ':kotlinNpmInstall'.
+//>                 Process 'Resolving NPM dependencies using yarn' returns 1
+//
+//                  yarn install v1.21.1
+//  info Visit https://yarnpkg.com/en/docs/cli/install for documentation about this command.
+//
+//https://stackoverflow.com/questions/60534770/exception-when-building-a-kotlin-js-project-error-package-json-name-contains-i
+rootProject.name = "MyApplication"
 include(":app")
 include(":shared")
 include(":jfx")
