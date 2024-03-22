@@ -34,6 +34,7 @@ java {
 
 val ktor_version = "2.3.9"
 val kotlinx_coroutines = "1.8.0"
+val kotlinxHtmlVersion = "0.11.0"
 
 kotlin {
 
@@ -58,14 +59,18 @@ kotlin {
     }
 //    iosArm64()
     js(IR) {
+        //自定义模块名
+        moduleName = "my-js"
         binaries.executable()
-        /*browser {
+        browser {
             commonWebpackConfig {
+                //自定义输出文件名，体现在index.html文件中的<script src="shared-js.js"></script>
+                outputFileName = "shared-js.js"
                 cssSupport {
                     enabled.set(true)
                 }
             }
-        }*/
+        }
         nodejs {
 
         }
@@ -81,6 +86,8 @@ kotlin {
                 implementation("io.ktor:ktor-serialization-kotlinx-json:$ktor_version")
                 implementation("io.ktor:ktor-client-logging:$ktor_version")
                 api("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinx_coroutines")
+                // include for Common module
+                implementation("org.jetbrains.kotlinx:kotlinx-html:$kotlinxHtmlVersion")
             }
         }
         val androidMain by getting {
@@ -102,6 +109,8 @@ kotlin {
         jsMain.dependencies {
             implementation("io.ktor:ktor-client-js:$ktor_version")
             implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-js:1.8.0")
+            // include for JS target
+            implementation("org.jetbrains.kotlinx:kotlinx-html-js:$kotlinxHtmlVersion")
         }
     }
 }
